@@ -22,7 +22,6 @@ public class TransactionReaderImpl implements TransactionReader{
 
     @Override
     public List<Transaction> generateTransactions() {
-        String csvFile = "transactions.csv";
         BufferedReader bufferedReader = null;
         String line = "";
 

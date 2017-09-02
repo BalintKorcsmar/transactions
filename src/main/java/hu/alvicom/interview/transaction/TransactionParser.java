@@ -7,7 +7,9 @@ import java.util.List;
 public interface TransactionParser {
 
     static TransactionParser getInstance() {
-        return new TransactionParserImpl();
+        TransactionParserImpl parser = new TransactionParserImpl();
+        parser.init();
+        return parser;
     }
 
     void parse(List<Transaction> transactions);
