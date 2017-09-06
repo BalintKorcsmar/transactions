@@ -1,4 +1,4 @@
-package hu.alvicom.interview.utility;
+package hu.alvicom.interview.account;
 
 import hu.alvicom.interview.model.Account;
 import hu.alvicom.interview.model.Currency;

@@ -1,9 +1,10 @@
 package hu.alvicom.interview.transaction;
 
+import hu.alvicom.interview.account.AccountManager;
 import hu.alvicom.interview.model.Account;
 import hu.alvicom.interview.model.Transaction;
 import hu.alvicom.interview.report.ReportPrinter;
-import hu.alvicom.interview.utility.AccountGenerator;
+import hu.alvicom.interview.account.AccountGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,12 +13,12 @@ import java.util.Optional;
 
 public class TransactionParserImpl implements TransactionParser {
 
-    private List<Account> accounts;
+    private AccountManager accounts;
     private ObservableList<Transaction> parsedTransaction;
     private ReportPrinter reportPrinter;
 
     void init() {
-        accounts = AccountGenerator.generateAccounts();
+        accounts = AccountManager.getInstance();
         parsedTransaction = FXCollections.observableArrayList();
         reportPrinter = new ReportPrinter(parsedTransaction);
         parsedTransaction.addListener(reportPrinter.new ParsedTransactionListener());
@@ -26,15 +27,20 @@ public class TransactionParserImpl implements TransactionParser {
     @Override
     public void parse(List<Transaction> transactions) {
         transactions.forEach(transaction -> {
-            Optional<Account> matchingAccount = accounts.stream()
-                    .filter(account -> account.getAccountNumber().equals(transaction.getAccountNumber()))
-                    .findAny();
+            Optional<Account> matchingAccount = findMatchingAccount(transaction);
             if(matchingAccount.isPresent()) {
-                matchingAccount.get().performTransaction(transaction);
+                matchingAccount.get().execute(transaction);
                 parsedTransaction.add(transaction);
             } else {
-                System.out.println("Warning! Bank account not found: " + transaction.getAccountNumber());
+                reportPrinter.printWarning(transaction);
             }
         });
+    }
+
+
+    private Optional<Account> findMatchingAccount(Transaction transaction) {
+        return accounts.getAccounts().stream()
+                .filter(account -> account.isTransactionMatching(transaction))
+                .findAny();
     }
 }

@@ -16,7 +16,14 @@ public class Transaction {
         return "Transaction [account=" + accountNumber +
                 ", currency=" + currency +
                 ", amount=" + amount +
-                ", exchange rate=" + exchangeRate + "]";
+                exchangeRateToString() + "]";
+    }
 
+    private String exchangeRateToString() {
+        return exchangeRate == 0 ? "" : ", exchange rate=" + String.valueOf(exchangeRate);
+    }
+
+    public boolean isMatchingCurrency(Currency currency) {
+        return this.currency.equals(currency);
     }
 }

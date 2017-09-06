@@ -1,6 +1,7 @@
 .idea/
 .gradle/
 out/
+doc/
 gradle/
 gradlew
 gradlew.bat

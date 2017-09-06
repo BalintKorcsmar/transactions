@@ -1,6 +1,5 @@
 package hu.alvicom.interview.model;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -15,7 +14,15 @@ public class Account {
         this.balance = balance;
     }
 
-    public void performTransaction(Transaction transaction) {
-//        System.out.println(transaction);
+    public void execute(Transaction transaction) {
+        if(transaction.getCurrency().equals(currency)) {
+            balance += transaction.getAmount();
+        } else {
+            balance += transaction.getAmount() * transaction.getExchangeRate();
+        }
+    }
+
+    public boolean isTransactionMatching(Transaction transaction) {
+        return getAccountNumber().equals(transaction.getAccountNumber());
     }
 }
