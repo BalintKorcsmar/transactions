@@ -20,7 +20,7 @@ public class TransactionReaderImpl implements TransactionReader {
     }
 
     @Override
-    public List<Transaction> generateTransactions() {
+    public List<Transaction> readTransactions() {
         BufferedReader bufferedReader = null;
         String line = "";
 

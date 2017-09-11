@@ -10,5 +10,5 @@ public interface TransactionReader {
         return new TransactionReaderImpl(pathToCsv);
     }
 
-    List<Transaction> generateTransactions();
+    List<Transaction> readTransactions();
 }

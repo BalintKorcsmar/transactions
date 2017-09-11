@@ -10,7 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
         TransactionReader reader = TransactionReader.getInstance("transactions.csv");
-        List<Transaction> transactions = reader.generateTransactions();
+        List<Transaction> transactions = reader.readTransactions();
+        
         TransactionParser parser = TransactionParser.getInstance();
         parser.parse(transactions);
     }
