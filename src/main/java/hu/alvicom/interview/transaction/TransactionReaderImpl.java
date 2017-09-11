@@ -3,21 +3,20 @@ package hu.alvicom.interview.transaction;
 import hu.alvicom.interview.model.Currency;
 import hu.alvicom.interview.model.Transaction;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionReaderImpl implements TransactionReader{
+public class TransactionReaderImpl implements TransactionReader {
 
     private static final String CSV_SPLIT = ",";
 
-    private final String csvFile;
+    private final InputStream csvInput;
 
     TransactionReaderImpl(String csvFile) {
-        this.csvFile = csvFile;
+        ClassLoader classLoader = getClass().getClassLoader();
+        csvInput = classLoader.getResourceAsStream(csvFile);
     }
 
     @Override
@@ -28,7 +27,7 @@ public class TransactionReaderImpl implements TransactionReader{
         List<Transaction> transactions = new ArrayList<>();
 
         try {
-            bufferedReader = new BufferedReader(new FileReader(csvFile));
+            bufferedReader = new BufferedReader(new InputStreamReader(csvInput));
             while ((line = bufferedReader.readLine()) != null) {
                 String[] input = line.split(CSV_SPLIT);
                 Transaction transaction = buildTransaction(input);
