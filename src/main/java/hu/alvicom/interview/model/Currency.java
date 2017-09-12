@@ -3,9 +3,8 @@ package hu.alvicom.interview.model;
 public enum Currency {
 
     HUF("HUF"),
-    USD("USD");
+    USD("USD"),
+    CAD("CAD");
 
-    Currency(String currency) {
-
-    }
+    Currency(String currency) {}
 }
