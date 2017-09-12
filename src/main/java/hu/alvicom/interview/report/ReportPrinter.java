@@ -50,11 +50,19 @@ public class ReportPrinter {
         transactionMap.forEach((accountNumber, transactions) -> {
             printReportAccountHeader(accountNumber, transactions.size());
             transactions.forEach(this::printTransaction);
+            printReportAccountFooter(accountNumber);
         });
     }
 
     private void printReportAccountHeader(String accountNumber, int numberOfTransactions) {
-        System.out.println("\nPrinting report for account: " + accountNumber + ", Currency: " + accountManager.getAccountCurrency(accountNumber) + ", number of transactions: " + numberOfTransactions);
+        System.out.println("\nPrinting report for account: " + accountNumber +
+                ", Currency: " + accountManager.getAccountCurrency(accountNumber) +
+                ", number of transactions: " + numberOfTransactions);
+    }
+
+    private void printReportAccountFooter(String accountNumber) {
+        System.out.println("Available balance after executing the transactions: " +
+                String.format(Locale.US, "%.2f", accountManager.getAccountBalance(accountNumber)));
     }
 
     private void printReportFooter() {

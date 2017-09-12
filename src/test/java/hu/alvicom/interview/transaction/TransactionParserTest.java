@@ -63,7 +63,7 @@ public class TransactionParserTest {
 
     @Test
     public void testParseTransactionsEmptyList() {
-        parser.parse(Collections.EMPTY_LIST);
+        parser.parse(new ArrayList<>());
         assertFalse(reportPrinterMock.isReportPrinted());
     }
 

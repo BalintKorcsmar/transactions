@@ -4,7 +4,6 @@ import hu.alvicom.interview.account.AccountManager;
 import hu.alvicom.interview.model.Account;
 import hu.alvicom.interview.model.Transaction;
 import hu.alvicom.interview.report.ReportPrinter;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 

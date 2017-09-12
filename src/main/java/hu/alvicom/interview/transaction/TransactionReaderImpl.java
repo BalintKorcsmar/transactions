@@ -1,11 +1,12 @@
 package hu.alvicom.interview.transaction;
 
-import com.sun.org.apache.xml.internal.serializer.utils.SerializerMessages_zh_CN;
 import hu.alvicom.interview.model.Currency;
 import hu.alvicom.interview.model.Transaction;
 
-import java.io.*;
-import java.net.URL;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
