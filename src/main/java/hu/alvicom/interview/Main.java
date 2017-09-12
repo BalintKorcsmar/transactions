@@ -9,10 +9,14 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        TransactionReader reader = TransactionReader.getInstance("transactions.csv");
-        List<Transaction> transactions = reader.readTransactions();
-        
-        TransactionParser parser = TransactionParser.getInstance();
-        parser.parse(transactions);
+        try {
+            TransactionReader reader = TransactionReader.getInstance("transactions.csv");
+            List<Transaction> transactions = reader.readTransactions();
+
+            TransactionParser parser = TransactionParser.getInstance();
+            parser.parse(transactions);
+        } catch (Exception e) {
+            System.out.println("The program terminates.");
+        }
     }
 }

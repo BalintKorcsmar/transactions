@@ -1,5 +1,6 @@
 package hu.alvicom.interview.transaction;
 
+import com.sun.org.apache.xml.internal.serializer.utils.SerializerMessages_zh_CN;
 import hu.alvicom.interview.model.Currency;
 import hu.alvicom.interview.model.Transaction;
 
@@ -26,18 +27,29 @@ public class TransactionReaderImpl implements TransactionReader {
 
         List<Transaction> transactions = new ArrayList<>();
 
+        int lineNumber = 1;
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(csvInput));
             while ((line = bufferedReader.readLine()) != null) {
                 String[] input = line.split(CSV_SPLIT);
                 Transaction transaction = buildTransaction(input);
                 transactions.add(transaction);
+                lineNumber++;
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("The input file was not found.");
         } catch (IOException e) {
             System.out.println("An IO exception occurred.");
-        } finally {
+        } catch (NumberFormatException e) {
+            System.out.println("Number format error in input file in line: " + lineNumber + ".");
+            throw e;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid input file. Too few columns in line: " + lineNumber + ".");
+            throw e;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Unknown currency in input file in line: " + lineNumber + ".");
+            System.out.println(e.getMessage());
+            throw e;
+        }
+        finally {
             closeBufferedReader(bufferedReader);
         }
         return transactions;
