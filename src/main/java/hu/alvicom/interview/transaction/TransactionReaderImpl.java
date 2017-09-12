@@ -21,9 +21,9 @@ public class TransactionReaderImpl implements TransactionReader {
     }
 
     @Override
-    public List<Transaction> readTransactions() {
+    public List<Transaction> readTransactions() throws IOException {
         BufferedReader bufferedReader = null;
-        String line = "";
+        String line;
 
         List<Transaction> transactions = new ArrayList<>();
 
@@ -38,6 +38,7 @@ public class TransactionReaderImpl implements TransactionReader {
             }
         } catch (IOException e) {
             System.out.println("An IO exception occurred.");
+            throw e;
         } catch (NumberFormatException e) {
             System.out.println("Number format error in input file in line: " + lineNumber + ".");
             throw e;
@@ -55,6 +56,15 @@ public class TransactionReaderImpl implements TransactionReader {
         return transactions;
     }
 
+    private Transaction buildTransaction(String[] input) {
+        return Transaction.builder()
+                .accountNumber(input[0])
+                .currency(Currency.valueOf(input[1]))
+                .amount(Double.valueOf(input[2]))
+                .exchangeRate(Double.valueOf(input[3]))
+                .build();
+    }
+
     private void closeBufferedReader(BufferedReader bufferedReader) {
         if (bufferedReader != null) {
             try {
@@ -63,14 +73,5 @@ public class TransactionReaderImpl implements TransactionReader {
                 e.printStackTrace();
             }
         }
-    }
-
-    private Transaction buildTransaction(String[] input) {
-        return Transaction.builder()
-                .accountNumber(input[0])
-                .currency(Currency.valueOf(input[1]))
-                .amount(Double.valueOf(input[2]))
-                .exchangeRate(Double.valueOf(input[3]))
-                .build();
     }
 }
