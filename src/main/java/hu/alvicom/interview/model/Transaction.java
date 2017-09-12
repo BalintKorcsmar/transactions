@@ -1,15 +1,14 @@
 package hu.alvicom.interview.model;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 @Builder
 public class Transaction {
-    private String accountNumber;
-    private Currency currency;
-    private double amount;
-    private double exchangeRate;
+    private @Getter String accountNumber;
+    private @Getter Currency currency;
+    private @Getter double amount;
+    private @Getter double exchangeRate;
 
     @Override
     public String toString() {

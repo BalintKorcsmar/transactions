@@ -1,12 +1,11 @@
 package hu.alvicom.interview.model;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 public class Account {
-    private String accountNumber;
-    private Currency currency;
-    private double balance;
+    private @Getter String accountNumber;
+    private @Getter Currency currency;
+    private @Getter double balance;
 
     public Account(String accountNumber, Currency currency, double balance) {
         this.accountNumber = accountNumber;
@@ -23,6 +22,6 @@ public class Account {
     }
 
     public boolean isTransactionMatching(Transaction transaction) {
-        return getAccountNumber().equals(transaction.getAccountNumber());
+        return accountNumber.equals(transaction.getAccountNumber());
     }
 }
