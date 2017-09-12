@@ -14,18 +14,24 @@ public class ReportPrinter {
 
     private List<Transaction> parsedTransactions;
     private AccountManager accountManager;
+    private int printLimit;
 
-    public ReportPrinter(List<Transaction> parsedTransaction) {
-        this.parsedTransactions = parsedTransaction;
+    public ReportPrinter(List<Transaction> parsedTransactions) {
+        this.parsedTransactions = parsedTransactions;
         this.accountManager = AccountManager.getInstance();
+        printLimit = 10;
     }
 
     public class ParsedTransactionListener implements ListChangeListener<Transaction> {
         @Override
         public void onChanged(Change<? extends Transaction> c) {
-            if(parsedTransactions.size() % 10 == 0) {
+            if(isPrintLimitReached()) {
                 printReport();
             }
+        }
+
+        private boolean isPrintLimitReached() {
+            return parsedTransactions.size() % printLimit == 0;
         }
     }
 
