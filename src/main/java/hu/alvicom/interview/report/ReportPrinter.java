@@ -48,7 +48,7 @@ public class ReportPrinter {
     }
 
     private void printReportAccountHeader(String accountNumber, int numberOfTransactions) {
-        System.out.println("Printing report for account: " + accountNumber + ", number of transactions: " + numberOfTransactions);
+        System.out.println("\nPrinting report for account: " + accountNumber + ", Currency: " + accountManager.getAccountCurrency(accountNumber) + ", number of transactions: " + numberOfTransactions);
     }
 
     private void printReportFooter() {
